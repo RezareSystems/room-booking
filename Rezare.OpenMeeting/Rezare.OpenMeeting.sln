@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28922.388
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rezare.OpenMeeting.Domain", "Rezare.OpenMeeting.Domain\Rezare.OpenMeeting.Domain.csproj", "{A896F3D1-2AEB-4D7A-91D6-5CF95B5D0BED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A896F3D1-2AEB-4D7A-91D6-5CF95B5D0BED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A896F3D1-2AEB-4D7A-91D6-5CF95B5D0BED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A896F3D1-2AEB-4D7A-91D6-5CF95B5D0BED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A896F3D1-2AEB-4D7A-91D6-5CF95B5D0BED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2AF1E695-1576-4515-AEF1-AFCBC451B92F}
+	EndGlobalSection
+EndGlobal
