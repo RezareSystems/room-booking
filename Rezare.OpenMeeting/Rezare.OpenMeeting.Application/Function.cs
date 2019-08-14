@@ -32,7 +32,11 @@ namespace Rezare.OpenMeeting.Application
             return new APIGatewayProxyResponse
             {
                 StatusCode = (int)HttpStatusCode.OK,
-                Body = JsonConvert.SerializeObject(HttpStatusCode.OK),
+                Body = JsonConvert.SerializeObject(new
+                {
+                    Status = HttpStatusCode.OK,
+                    Message = "Ok I'm done"
+                }),
                 Headers = new Dictionary<string, string>
                 { 
                     { "Content-Type", "application/json" }, 
