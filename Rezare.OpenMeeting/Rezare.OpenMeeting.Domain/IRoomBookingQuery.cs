@@ -39,4 +39,15 @@ namespace Rezare.OpenMeeting.Domain
 
         public string Organizer { get; set; }
     }
+
+    public struct RoomConfig
+    {
+        public string EmailAddress { get; set; }
+        public string Password { get; set }
+    }
+
+    public struct GraphData
+    {
+
+    }
 }
