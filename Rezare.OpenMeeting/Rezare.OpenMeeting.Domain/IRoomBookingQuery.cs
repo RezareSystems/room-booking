@@ -13,20 +13,30 @@ namespace Rezare.OpenMeeting.Domain
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        List<RoomBooking> GetBookings(BookingQueryRequet request);
+        List<RoomBooking> GetBookings(BookingQueryRequest request);
     }
 
-    public struct BookingQueryRequet
+    public struct BookingQueryRequest
     {
         public List<string> RoomId { get; set; }
 
         public DateTime? From { get; set; }
 
-        public DateTime? to { get; set; }
+        public DateTime? To { get; set; }
     }
 
-    public class RoomBooking
+    public struct RoomBooking
     {
-        public string Name { get; private set; }
+        public string Name { get; set; }
+
+        public DateTime StartTime { get; set; }
+
+        public DateTime EndTime { get; set; }
+
+        public string Title { get; set; }
+
+        public List<string> Attendees { get; set; }
+
+        public string Organizer { get; set; }
     }
 }
