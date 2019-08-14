@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Rezare.OpenMeeting.Domain
 {
-    class RoomBookingQuery : IRoomBookingQuery
+    public class RoomBookingQuery : IRoomBookingQuery
     {
         public List<RoomBooking> GetBookings(BookingQueryRequest request)
         {

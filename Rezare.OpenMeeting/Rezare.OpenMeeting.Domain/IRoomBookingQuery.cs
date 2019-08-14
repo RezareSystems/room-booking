@@ -43,7 +43,7 @@ namespace Rezare.OpenMeeting.Domain
     public struct RoomConfig
     {
         public string EmailAddress { get; set; }
-        public string Password { get; set }
+        public string Password { get; set; }
     }
 
     public struct GraphData

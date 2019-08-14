@@ -6,6 +6,7 @@ using Amazon.Lambda.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Rezare.OpenMeeting.Application.Meetings;
+using Rezare.OpenMeeting.Domain;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
@@ -52,11 +53,7 @@ namespace Rezare.OpenMeeting.Application
             return new APIGatewayProxyResponse
             {
                 StatusCode = (int)HttpStatusCode.OK,
-                Body = JsonConvert.SerializeObject(new
-                {
-                    Status = HttpStatusCode.OK,
-                    Message = JsonConvert.SerializeObject(bookings)
-                }),
+                Body = JsonConvert.SerializeObject(bookings),
                 Headers = new Dictionary<string, string>
                 { 
                     { "Content-Type", "application/json" }, 
@@ -69,6 +66,7 @@ namespace Rezare.OpenMeeting.Application
         {
             serviceCollection.AddTransient<ILambdaConfiguration, LambdaConfiguration>();
             serviceCollection.AddTransient<IGetBookingsCommand, GetBookingsCommand>();
+            serviceCollection.AddTransient<IRoomBookingQuery, RoomBookingQuery>();
         }
     }
 }

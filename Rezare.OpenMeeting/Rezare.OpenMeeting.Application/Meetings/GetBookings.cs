@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Rezare.OpenMeeting.Domain;
 
 namespace Rezare.OpenMeeting.Application.Meetings
 {
@@ -54,26 +56,56 @@ namespace Rezare.OpenMeeting.Application.Meetings
 
     public class GetBookingsCommand : IGetBookingsCommand
     {
+        private readonly IRoomBookingQuery _bookingRoomQuery;
+
+        public GetBookingsCommand(IRoomBookingQuery bookingRoomQuery)
+        {
+            _bookingRoomQuery = bookingRoomQuery;
+        }
+
         public GetBookingsResponse GetBookings(GetBookingsRequest request)
         {
+            var bookings = _bookingRoomQuery.GetBookings(new BookingQueryRequest()
+            {
+                RoomId = new List<string>()
+                {
+                    request.RoomId
+                },
+                From = request.BookingDay.GetValueOrDefault(),
+                To = request.BookingDay.GetValueOrDefault()
+            });
+
             return new GetBookingsResponse()
             {
                 RoomName = "Kakapo",
-                Bookings = new List<RoomBookingDetails>()
+                Bookings = bookings.Select(p => new RoomBookingDetails()
                 {
-                    new RoomBookingDetails()
-                    {
-                        Title = "Test",
-                        Organizer = "Andre",
-                        Attendees = new List<string>()
-                        {
-                            "Don", "Dean"
-                        },
-                        StartTime = request.BookingDay ?? DateTime.Now,
-                        EndTime = DateTime.Now.AddHours(1)
-                    }
-                }
+                    Organizer = p.Organizer,
+                    Title = p.Title,
+                    StartTime = p.StartTime,
+                    Attendees = p.Attendees,
+                    EndTime = p.EndTime
+                }).ToList()
             };
+
+            //return new GetBookingsResponse()
+            //{
+            //    RoomName = "Kakapo",
+            //    Bookings = new List<RoomBookingDetails>()
+            //    {
+            //        new RoomBookingDetails()
+            //        {
+            //            Title = "Test",
+            //            Organizer = "Andre",
+            //            Attendees = new List<string>()
+            //            {
+            //                "Don", "Dean"
+            //            },
+            //            StartTime = request.BookingDay ?? DateTime.Now,
+            //            EndTime = DateTime.Now.AddHours(1)
+            //        }
+            //    }
+            //};
         }
     }
 }

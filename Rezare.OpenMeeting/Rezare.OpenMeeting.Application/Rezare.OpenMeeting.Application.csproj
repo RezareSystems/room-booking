@@ -25,4 +25,8 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Rezare.OpenMeeting.Domain\Rezare.OpenMeeting.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
