@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using Rezare.OpenMeeting.Application.Meetings;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
@@ -15,6 +14,9 @@ namespace Rezare.OpenMeeting.Application
 {
     public class Function
     {
+        private readonly ILambdaConfiguration _configuration;
+        private readonly IGetBookingsCommand _bookingsCommand;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Function"/> class.
         /// 
@@ -24,18 +26,36 @@ namespace Rezare.OpenMeeting.Application
         /// </summary>
         public Function()
         {
+            var serviceCollection = new ServiceCollection();
+            ConfigureServices(serviceCollection);
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+            _configuration = serviceProvider.GetService<ILambdaConfiguration>();
+            _bookingsCommand = serviceProvider.GetService<IGetBookingsCommand>();
         }
 
+        /// <summary>
+        /// Returns the bookings for the specified room based on it's ID
+        /// </summary>
         public APIGatewayProxyResponse GetBookings(
-            APIGatewayProxyRequest request, ILambdaContext context)
+            APIGatewayProxyRequest request, 
+            ILambdaContext context)
         {
+            var roomId = request.QueryStringParameters["RoomId"];
+            var hasBookingDay = DateTime.TryParse(request.QueryStringParameters["BookingDay"], out DateTime bookingDay);
+
+            var bookings = _bookingsCommand.GetBookings(new GetBookingsRequest()
+            {
+                RoomId = roomId,
+                BookingDay = hasBookingDay ? bookingDay : DateTime.Now
+            });
+
             return new APIGatewayProxyResponse
             {
                 StatusCode = (int)HttpStatusCode.OK,
                 Body = JsonConvert.SerializeObject(new
                 {
                     Status = HttpStatusCode.OK,
-                    Message = "Ok I'm done"
+                    Message = JsonConvert.SerializeObject(bookings)
                 }),
                 Headers = new Dictionary<string, string>
                 { 
@@ -43,6 +63,12 @@ namespace Rezare.OpenMeeting.Application
                     { "Access-Control-Allow-Origin", "*" } 
                 }
             };;
+        }
+
+        private void ConfigureServices(IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddTransient<ILambdaConfiguration, LambdaConfiguration>();
+            serviceCollection.AddTransient<IGetBookingsCommand, GetBookingsCommand>();
         }
     }
 }
