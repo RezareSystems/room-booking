@@ -16,5 +16,10 @@ namespace Rezare.OpenMeeting.Domain
     public class RoomConfiguration
     {
         public string Name { get; private set; }
+
+        public RoomConfiguration(string name)
+        {
+            Name = name;
+        }
     }
 }

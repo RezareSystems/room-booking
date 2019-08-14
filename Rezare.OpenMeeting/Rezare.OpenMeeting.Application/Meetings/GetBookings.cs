@@ -44,6 +44,9 @@ namespace Rezare.OpenMeeting.Application.Meetings
         public string Organizer { get; set; }
     }
 
+    /// <summary>
+    /// Command handler for a request to list the bookings for a room
+    /// </summary>
     public interface IGetBookingsCommand
     {
         /// <summary>
@@ -57,10 +60,14 @@ namespace Rezare.OpenMeeting.Application.Meetings
     public class GetBookingsCommand : IGetBookingsCommand
     {
         private readonly IRoomBookingQuery _bookingRoomQuery;
+        private readonly IRoomBookingConfigurationQuery _roomBookingConfigurationQuery;
 
-        public GetBookingsCommand(IRoomBookingQuery bookingRoomQuery)
+        public GetBookingsCommand(
+            IRoomBookingQuery bookingRoomQuery,
+            IRoomBookingConfigurationQuery roomBookingConfigurationQuery)
         {
             _bookingRoomQuery = bookingRoomQuery;
+            _roomBookingConfigurationQuery = roomBookingConfigurationQuery;
         }
 
         public GetBookingsResponse GetBookings(GetBookingsRequest request)
@@ -75,9 +82,11 @@ namespace Rezare.OpenMeeting.Application.Meetings
                 To = request.BookingDay.GetValueOrDefault()
             });
 
-            return new GetBookingsResponse()
+            var roomConfiguration = _roomBookingConfigurationQuery.GetConfiguration(request.RoomId);
+
+            return new GetBookingsResponse
             {
-                RoomName = "Kakapo",
+                RoomName = roomConfiguration?.Name,
                 Bookings = bookings.Select(p => new RoomBookingDetails()
                 {
                     Organizer = p.Organizer,
@@ -87,25 +96,6 @@ namespace Rezare.OpenMeeting.Application.Meetings
                     EndTime = p.EndTime
                 }).ToList()
             };
-
-            //return new GetBookingsResponse()
-            //{
-            //    RoomName = "Kakapo",
-            //    Bookings = new List<RoomBookingDetails>()
-            //    {
-            //        new RoomBookingDetails()
-            //        {
-            //            Title = "Test",
-            //            Organizer = "Andre",
-            //            Attendees = new List<string>()
-            //            {
-            //                "Don", "Dean"
-            //            },
-            //            StartTime = request.BookingDay ?? DateTime.Now,
-            //            EndTime = DateTime.Now.AddHours(1)
-            //        }
-            //    }
-            //};
         }
     }
 }

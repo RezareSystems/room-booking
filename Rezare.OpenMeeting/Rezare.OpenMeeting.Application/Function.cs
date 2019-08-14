@@ -5,12 +5,12 @@ using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using Rezare.OpenMeeting.Application.Configuration;
 using Rezare.OpenMeeting.Application.Meetings;
 using Rezare.OpenMeeting.Domain;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
-
 namespace Rezare.OpenMeeting.Application
 {
     public class Function
@@ -41,13 +41,16 @@ namespace Rezare.OpenMeeting.Application
             APIGatewayProxyRequest request, 
             ILambdaContext context)
         {
+            // RoomId is required
             var roomId = request.QueryStringParameters["RoomId"];
-            var hasBookingDay = DateTime.TryParse(request.QueryStringParameters["BookingDay"], out DateTime bookingDay);
 
+            // Booking day is optional
+            request.QueryStringParameters.TryGetValue("BookingDay", out string bookingDayQuery);
+            
             var bookings = _bookingsCommand.GetBookings(new GetBookingsRequest()
             {
                 RoomId = roomId,
-                BookingDay = hasBookingDay ? bookingDay : DateTime.Now
+                BookingDay = DateTime.TryParse(bookingDayQuery, out DateTime bookingDay) ? bookingDay : DateTime.Now
             });
 
             return new APIGatewayProxyResponse
@@ -62,11 +65,15 @@ namespace Rezare.OpenMeeting.Application
             };;
         }
 
+        /// <summary>
+        /// Configure any interfaces and their implementations here
+        /// </summary>
         private void ConfigureServices(IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<ILambdaConfiguration, LambdaConfiguration>();
             serviceCollection.AddTransient<IGetBookingsCommand, GetBookingsCommand>();
             serviceCollection.AddTransient<IRoomBookingQuery, RoomBookingQuery>();
+            serviceCollection.AddTransient<IRoomBookingConfigurationQuery, DynamoRoomBookingConfigurationQuery>();
         }
     }
 }
