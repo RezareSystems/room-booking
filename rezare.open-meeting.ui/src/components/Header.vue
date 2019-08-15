@@ -13,7 +13,6 @@
 </template>
 
 <script>
-const myDate = new Date();
 
 export default {
     name: 'HelloWorld',
@@ -51,16 +50,5 @@ h4 {
     font-size: 1em;
     color: #6D6E71;
     padding-right: 1em;
-}
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-li {
-    display: inline-block;
-    margin: 0 10px;
-}
-a {
-    color: #42b983;
 }
 </style>
