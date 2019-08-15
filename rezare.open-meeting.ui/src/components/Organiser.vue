@@ -1,6 +1,6 @@
 <template>
-    <div class="hello">
-        <div v-if="info" class="row pl-3 pt-2">
+    <div class="container p-0">
+        <div v-if="info" class="row pt-3 pb-5 justify-content-between align-items-end">
             <div class="card ml-3">
                 <div class="row m-0 align-items-center">
                     <div class="col-4 p-0">
@@ -8,7 +8,7 @@
                     </div>
                     <div class="col-8 text-left">
                         <p class="m-0">Organiser</p>
-                        <h2 class="m-0">{{ organiser }}</h2>
+                        <h2 class="m-0">{{ info.data.Bookings[0].Organizer }}</h2>
                         <h4 class="m-0">Project Manager</h4>
                     </div>
                 </div>
@@ -22,9 +22,15 @@
                     <p class="pl-4">{{ attendeeCount }} Attendees</p>
                     </div>
                 </div>
+                <div class="card mr-3 h-100">
+                    <div class="m-0 align-items-center text-right p-4">
+                        <h2 class="m-0 pb-3">Next Meeting</h2>
+                        <h4 class="m-0">{{ bookedTime }}</h4>
+                        <h3 class="m-0">{{ info.data.Bookings[1].Title }}</h3>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 </template>
 
 <script>
@@ -38,10 +44,7 @@ export default {
             attendees: [],
             attendeeCount: null,
             bookedTime: null,
-            organiser: 'Sailee Patel',
             info: { data : { RoomName: null, Bookings: [] }},
-            dateToday: new Date().toDateString(),
-            timeNow:  new Date().toLocaleString('en-NZ', { hour: 'numeric', minute: 'numeric', hour12: true }).toUpperCase()
         }
     },
     methods:{
@@ -61,6 +64,10 @@ export default {
                         initials.push(firstName.charAt(0) + lastName.charAt(0));
                         
                         this.attendees = initials;
+
+                        const startTime =  moment(String(response.data.Bookings[0].StartTime)).format('hh:mm A');
+                        const endTime =  moment(String(response.data.Bookings[0].EndTime)).format('hh:mm A');
+                        this.bookedTime = `${startTime} - ${endTime}`;
                     });
                 })
         }
@@ -93,7 +100,8 @@ h2 {
     color: #0057A3;
 }
 h3 {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
+    font-weight: bolder;
     color: #6D6E71;
 }
 h4 {

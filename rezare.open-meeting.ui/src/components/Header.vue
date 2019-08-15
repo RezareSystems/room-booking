@@ -1,5 +1,5 @@
 <template>
-    <div class="hello">
+    <div class="container p-0">
         <div class="row">
             <div class="col-6 d-inline-flex justify-content-left">
                 <img alt="Vue logo" src="../assets/Rezare-Logo.png">
