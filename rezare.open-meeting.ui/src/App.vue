@@ -1,19 +1,19 @@
 <template>
   <div id="app">
     <Header />
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+    <Meetings />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
 import Header from './components/Header.vue';
+import Meetings from './components/Meetings.vue';
 
 export default {
   name: 'app',
   components: {
-    HelloWorld,
-    Header
+    Header,
+    Meetings
   }
 }
 </script>
