@@ -1,18 +1,21 @@
 <template>
   <div id="app">
     <Header />
+    <MeetingRoom />
     <Meetings />
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue';
+import MeetingRoom from './components/MeetingRoom.vue';
 import Meetings from './components/Meetings.vue';
 
 export default {
   name: 'app',
   components: {
     Header,
+    MeetingRoom,
     Meetings
   }
 }
