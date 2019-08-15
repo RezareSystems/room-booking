@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Rezare.OpenMeeting.Application.Infrastructure;
 using Rezare.OpenMeeting.Application.Meetings;
 using Rezare.OpenMeeting.Data.Dynamo.Configuration;
 using Rezare.OpenMeeting.Domain;
@@ -16,7 +21,6 @@ namespace Rezare.OpenMeeting.Application
 {
     public class Function
     {
-        private readonly ILambdaConfiguration _configuration;
         private readonly IGetBookingsCommand _bookingsCommand;
 
         /// <summary>
@@ -30,8 +34,9 @@ namespace Rezare.OpenMeeting.Application
         {
             var serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection);
+
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            _configuration = serviceProvider.GetService<ILambdaConfiguration>();
+            
             _bookingsCommand = serviceProvider.GetService<IGetBookingsCommand>();
         }
 
@@ -44,11 +49,13 @@ namespace Rezare.OpenMeeting.Application
         {
             // RoomId is required
             var roomId = request.QueryStringParameters["RoomId"];
+            
+            context.Logger.LogLine($"Request for booking room {roomId}");
 
             // Booking day is optional
             request.QueryStringParameters.TryGetValue("BookingDay", out string bookingDayQuery);
             
-            var bookings = await _bookingsCommand.GetBookings(new GetBookingsRequest()
+            var bookings = await _bookingsCommand.GetBookings(new GetBookingsRequest(new ApplicationLogger(context.Logger))
             {
                 RoomId = roomId,
                 BookingDay = DateTime.TryParse(bookingDayQuery, out DateTime bookingDay) ? bookingDay : DateTime.Now
@@ -71,10 +78,11 @@ namespace Rezare.OpenMeeting.Application
         /// </summary>
         private void ConfigureServices(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<ILambdaConfiguration, LambdaConfiguration>();
-            serviceCollection.AddTransient<IGetBookingsCommand, GetBookingsCommand>();
-            serviceCollection.AddTransient<IRoomBookingQuery, RoomBookingQuery>();
-            serviceCollection.AddTransient<IRoomBookingConfigurationQuery, DynamoRoomBookingConfigurationQuery>();
+            serviceCollection.AddScoped<ILambdaConfiguration, LambdaConfiguration>();
+            serviceCollection.AddScoped<IGetBookingsCommand, GetBookingsCommand>();
+            serviceCollection.AddScoped<IRoomBookingQuery, RoomBookingQuery>();
+            serviceCollection.AddScoped<IRoomBookingConfigurationQuery, DynamoRoomBookingConfigurationQuery>();
+            serviceCollection.AddScoped<IApplicationLogger, ApplicationLogger>();
         }
     }
 }
