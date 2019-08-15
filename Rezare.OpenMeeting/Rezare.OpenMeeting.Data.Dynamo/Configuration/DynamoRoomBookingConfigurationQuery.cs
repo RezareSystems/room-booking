@@ -3,9 +3,9 @@ using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using Rezare.OpenMeeting.Domain;
 
-namespace Rezare.OpenMeeting.Application.Configuration
+namespace Rezare.OpenMeeting.Data.Dynamo.Configuration
 {
-    internal class DynamoRoomBookingConfigurationQuery : IRoomBookingConfigurationQuery
+    public class DynamoRoomBookingConfigurationQuery : IRoomBookingConfigurationQuery
     {
         public async Task<RoomConfiguration> GetConfiguration(string roomId)
         {
@@ -14,7 +14,9 @@ namespace Rezare.OpenMeeting.Application.Configuration
             var context = new DynamoDBContext(client);
             var room =  await context.LoadAsync<Room>($"{roomId}-azure");
 
-            return new RoomConfiguration(room.Name);
+            return new RoomConfiguration(room.Name, 
+                room.Username, 
+                room.Password);
         }
     }
 }

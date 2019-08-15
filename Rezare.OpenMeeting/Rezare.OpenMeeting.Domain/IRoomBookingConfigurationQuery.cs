@@ -18,9 +18,18 @@ namespace Rezare.OpenMeeting.Domain
     {
         public string Name { get; private set; }
 
-        public RoomConfiguration(string name)
+        public string Username { get; private set; }
+
+        public string Password { get; private set; }
+
+        public RoomConfiguration(
+            string name,
+            string username,
+            string password)
         {
             Name = name;
+            Username = username;
+            Password = password;
         }
     }
 }

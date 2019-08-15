@@ -6,8 +6,8 @@ using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
-using Rezare.OpenMeeting.Application.Configuration;
 using Rezare.OpenMeeting.Application.Meetings;
+using Rezare.OpenMeeting.Data.Dynamo.Configuration;
 using Rezare.OpenMeeting.Domain;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.

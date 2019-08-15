@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.3.101.54" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rezare.OpenMeeting.Domain\Rezare.OpenMeeting.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

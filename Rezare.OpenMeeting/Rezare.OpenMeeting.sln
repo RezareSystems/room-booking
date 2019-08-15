@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rezare.OpenMeeting.Domain", "Rezare.OpenMeeting.Domain\Rezare.OpenMeeting.Domain.csproj", "{A896F3D1-2AEB-4D7A-91D6-5CF95B5D0BED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rezare.OpenMeeting.Application", "Rezare.OpenMeeting.Application\Rezare.OpenMeeting.Application.csproj", "{C9025FCE-DA92-4EC9-91D1-30BF597C5486}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rezare.OpenMeeting.Application", "Rezare.OpenMeeting.Application\Rezare.OpenMeeting.Application.csproj", "{C9025FCE-DA92-4EC9-91D1-30BF597C5486}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rezare.OpenMeeting.Data.Dynamo", "Rezare.OpenMeeting.Data.Dynamo\Rezare.OpenMeeting.Data.Dynamo.csproj", "{EEB0193A-1E4B-4C93-82C1-5DB5A538F685}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{C9025FCE-DA92-4EC9-91D1-30BF597C5486}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9025FCE-DA92-4EC9-91D1-30BF597C5486}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9025FCE-DA92-4EC9-91D1-30BF597C5486}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEB0193A-1E4B-4C93-82C1-5DB5A538F685}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEB0193A-1E4B-4C93-82C1-5DB5A538F685}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEB0193A-1E4B-4C93-82C1-5DB5A538F685}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEB0193A-1E4B-4C93-82C1-5DB5A538F685}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
