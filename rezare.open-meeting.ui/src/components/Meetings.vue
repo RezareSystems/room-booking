@@ -1,18 +1,16 @@
 <template>
   <div class="hello">
-    <div id="dean">
-      {{ info }}
-    </div>
     <div class="container">
-        <div class="row">
-            <div class="col-sm">
-            One of three columns
-            </div>
-            <div class="col-sm">
-            One of three columns
-            </div>
-            <div class="col-sm">
-            One of three columns
+        <div v-if="info" class="row">
+            <div v-for="booking in info.data.Bookings" :key="booking.StartTime" class="col-sm">
+                <div>{{ formatTime(booking.StartTime) }}</div>
+                <div>Booked</div>
+                <div><b>{{ booking.Title }}</b></div>
+                <div>{{ booking.Organizer }}</div>
+                
+                <!-- <div v-for="attendee in booking.Attendees" :key="attendee">
+                    <div>{{ attendee }}</div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -21,25 +19,28 @@
 
 <script>
 import axios from 'axios'
+import moment from 'moment'
 
 export default {
-  name: 'Meetings',
-  props: {
-    msg: String
-  },
-  data () {
-      return {
-        info: null
-      }
+    name: 'Meetings',
+    props: {
     },
-  mounted () {
-      axios
-        .get('https://e5hqivepy9.execute-api.ap-southeast-2.amazonaws.com/dev?RoomId=kakapo&BookingDay=2019-08-27')
-        .then(response => {this.info = response})
+    methods:{
+        formatTime: function(time){
+            return moment(String(time)).format('hh:mm') 
+        }
+    },
+    data () {
+        return {
+            info: {data : { Bookings: []}}
+        }
+    },
+    mounted () {
+        axios
+            .get('https://e5hqivepy9.execute-api.ap-southeast-2.amazonaws.com/dev?RoomId=kakapo&BookingDay=2019-08-27')
+            .then(response => {this.info = response})
     }
 }
-
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
