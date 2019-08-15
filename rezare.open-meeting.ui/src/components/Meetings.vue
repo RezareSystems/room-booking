@@ -16,13 +16,14 @@
             </div>
         </div>
     </div>
+
+   
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 import moment from 'moment'
-
 
 export default {
     name: 'Meetings',
@@ -80,7 +81,7 @@ export default {
     },
     data () {
         return {
-            info: {data : { Bookings: []}}
+            info: {data : { Bookings: []}}            
         }
     },
     mounted () {
