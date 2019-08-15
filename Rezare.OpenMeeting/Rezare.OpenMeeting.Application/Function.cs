@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
 using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,7 +38,7 @@ namespace Rezare.OpenMeeting.Application
         /// <summary>
         /// Returns the bookings for the specified room based on it's ID
         /// </summary>
-        public APIGatewayProxyResponse GetBookings(
+        public async Task<APIGatewayProxyResponse> GetBookings(
             APIGatewayProxyRequest request, 
             ILambdaContext context)
         {
@@ -47,7 +48,7 @@ namespace Rezare.OpenMeeting.Application
             // Booking day is optional
             request.QueryStringParameters.TryGetValue("BookingDay", out string bookingDayQuery);
             
-            var bookings = _bookingsCommand.GetBookings(new GetBookingsRequest()
+            var bookings = await _bookingsCommand.GetBookings(new GetBookingsRequest()
             {
                 RoomId = roomId,
                 BookingDay = DateTime.TryParse(bookingDayQuery, out DateTime bookingDay) ? bookingDay : DateTime.Now

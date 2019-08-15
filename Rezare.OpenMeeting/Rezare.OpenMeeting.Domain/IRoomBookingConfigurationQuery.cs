@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Rezare.OpenMeeting.Domain
 {
@@ -10,7 +11,7 @@ namespace Rezare.OpenMeeting.Domain
         /// Returns the configuration for a room
         /// </summary>
         /// <param name="roomId"></param>
-        RoomConfiguration GetConfiguration(string roomId);
+        Task<RoomConfiguration> GetConfiguration(string roomId);
     }
 
     public class RoomConfiguration

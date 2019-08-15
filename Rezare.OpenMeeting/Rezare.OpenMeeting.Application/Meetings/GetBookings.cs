@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Rezare.OpenMeeting.Domain;
 
 namespace Rezare.OpenMeeting.Application.Meetings
@@ -54,7 +55,7 @@ namespace Rezare.OpenMeeting.Application.Meetings
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        GetBookingsResponse GetBookings(GetBookingsRequest request);
+        Task<GetBookingsResponse> GetBookings(GetBookingsRequest request);
     }
 
     public class GetBookingsCommand : IGetBookingsCommand
@@ -70,7 +71,7 @@ namespace Rezare.OpenMeeting.Application.Meetings
             _roomBookingConfigurationQuery = roomBookingConfigurationQuery;
         }
 
-        public GetBookingsResponse GetBookings(GetBookingsRequest request)
+        public async Task<GetBookingsResponse> GetBookings(GetBookingsRequest request)
         {
             var bookings = _bookingRoomQuery.GetBookings(new BookingQueryRequest()
             {
@@ -82,7 +83,7 @@ namespace Rezare.OpenMeeting.Application.Meetings
                 To = request.BookingDay.GetValueOrDefault()
             });
 
-            var roomConfiguration = _roomBookingConfigurationQuery.GetConfiguration(request.RoomId);
+            var roomConfiguration = await _roomBookingConfigurationQuery.GetConfiguration(request.RoomId);
 
             return new GetBookingsResponse
             {
