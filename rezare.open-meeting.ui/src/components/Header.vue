@@ -5,19 +5,30 @@
                 <img alt="Vue logo" src="../assets/Rezare-Logo.png">
             </div>
             <div class="col-6">
-                <h2 class="w-100 text-right m-0 pt-2">10:00 PM</h2>
-                <h4 class="w-100 text-right m-0">Thurs, August 15, 2019</h4>
+                <h2 class="w-100 text-right m-0 pt-2">{{ timeNow }}</h2>
+                <h4 class="w-100 text-right m-0">{{ dateToday }}</h4>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+const myDate = new Date();
+
 export default {
     name: 'HelloWorld',
-    props: {
-        msg: String,
-        info: String,
+    data() {
+        return {
+            dateToday: new Date().toDateString(),
+            timeNow:  new Date().toLocaleString('en-NZ', { hour: 'numeric', minute: 'numeric', hour12: true }).toUpperCase()
+        }
+    },
+    methods:{
+        callFunction: function () {
+        }
+    },
+    mounted() {
+        this.callFunction();
     }
 }
 </script>
