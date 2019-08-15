@@ -18,6 +18,13 @@ namespace Rezare.OpenMeeting.Application.Meetings
         /// The day of bookings we are interested for. If not set then the current day is assumed
         /// </summary>
         public DateTime? BookingDay { get; set; }
+
+        public IApplicationLogger Logger { get; private set; }
+
+        public GetBookingsRequest(IApplicationLogger logger)
+        {
+            Logger = logger;
+        }
     }
 
     public class GetBookingsResponse
@@ -83,6 +90,7 @@ namespace Rezare.OpenMeeting.Application.Meetings
                 To = request.BookingDay.GetValueOrDefault()
             });
 
+            _roomBookingConfigurationQuery.ApplicationLogger = request.Logger;
             var roomConfiguration = await _roomBookingConfigurationQuery.GetConfiguration(request.RoomId);
 
             return new GetBookingsResponse

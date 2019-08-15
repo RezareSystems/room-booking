@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Rezare.OpenMeeting.Domain
 {
-    public interface IRoomBookingConfigurationQuery
+    public interface IRoomBookingConfigurationQuery : IApplicationLogging
     {
         /// <summary>
         /// Returns the configuration for a room
