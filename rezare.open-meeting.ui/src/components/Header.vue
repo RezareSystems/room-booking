@@ -1,12 +1,12 @@
 <template>
     <div class="hello">
         <div class="row">
-            <div class="col-6">
+            <div class="col-6 d-inline-flex justify-content-left">
                 <img alt="Vue logo" src="../assets/Rezare-Logo.png">
             </div>
             <div class="col-6">
-                <h2>10:00 PM</h2>
-                <h4>Thurs, August 15, 2019</h4>
+                <h2 class="w-100 text-right m-0 pt-2">10:00 PM</h2>
+                <h4 class="w-100 text-right m-0">Thurs, August 15, 2019</h4>
             </div>
         </div>
     </div>
@@ -26,22 +26,20 @@ export default {
 <style scoped>
 img {
     height: 5em;
-    float: left;
 }
 h2 {
     font-size: 2em;
+    font-weight: bold;
     color: #0057A3;
     padding-right: 0.5em;
-    float: right;
 }
 h3 {
     margin: 40px 0 0;
 }
 h4 {
-    float: right;
     font-size: 1em;
     color: #6D6E71;
-    margin-right: 0.5em;
+    padding-right: 1em;
 }
 ul {
     list-style-type: none;
