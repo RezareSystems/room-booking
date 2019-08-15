@@ -2,7 +2,7 @@
     <div class="container p-0">
         <div v-if="info" class="row pt-3">
             <div class="col-12 text-left">
-                <h1 class="w-100 m-0">{{ info.data.RoomName }}</h1>
+                <h1 class="w-100 m-0">{{ info.data.RoomName }} Meeting Room</h1>
                 <h3 class="w-100 m-0 pt-3">{{ info.data.Bookings[0].Title }}</h3>
                 <h2 class="w-100 m-0 pt-1">{{ bookedTime }}</h2>
             </div>

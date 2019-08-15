@@ -1,7 +1,7 @@
 <template>
     <div class="container p-0">
         <div v-if="info" class="row pt-3 pb-5 justify-content-between align-items-end">
-            <div class="card ml-3">
+            <div class="card w-50 ml-3">
                 <div class="row m-0 align-items-center">
                     <div class="col-4 p-0">
                         <img alt="Vue logo" src="../assets/Sailee Patel.jpg">
