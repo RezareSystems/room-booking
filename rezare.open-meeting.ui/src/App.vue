@@ -2,6 +2,7 @@
   <div id="app">
     <Header />
     <MeetingRoom />
+    <Organiser />
     <Meetings />
   </div>
 </template>
@@ -9,6 +10,7 @@
 <script>
 import Header from './components/Header.vue';
 import MeetingRoom from './components/MeetingRoom.vue';
+import Organiser from './components/Organiser.vue';
 import Meetings from './components/Meetings.vue';
 
 export default {
@@ -16,6 +18,7 @@ export default {
   components: {
     Header,
     MeetingRoom,
+    Organiser,
     Meetings
   }
 }
