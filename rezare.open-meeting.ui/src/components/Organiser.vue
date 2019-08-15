@@ -21,12 +21,12 @@
                     </div>
                     <p class="pl-4">{{ attendeeCount }} Attendees</p>
                 </div>
-                <div class="card mr-3 w-100 h-100">
-                    <div class="m-0 align-items-center text-left p-4">
-                        <h2 class="m-0 pb-3">Next Meeting</h2>
-                        <h4 class="m-0">{{ bookedTime }}</h4>
-                        <h3 class="m-0">{{ info.data.Bookings[1].Title }}</h3>
-                    </div>
+            </div>
+            <div class="card mr-3 h-100">
+                <div class="m-0 align-items-center text-right p-4">
+                    <h2 class="m-0 pb-3">Next Meeting</h2>
+                    <h4 class="m-0">{{ bookedTime }}</h4>
+                    <h3 class="m-0">{{ info.data.Bookings[1].Title }}</h3>
                 </div>
             </div>
         </div>
